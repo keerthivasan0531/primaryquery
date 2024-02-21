@@ -1,9 +1,10 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { InputTextarea } from 'primereact/inputtextarea'; // Import InputText component
+import { InputTextarea } from "primereact/inputtextarea"; // Import InputText component
 import { Dropdown } from "primereact/dropdown";
+import { ProgressSpinner } from "primereact/progressspinner";
 import axios from "axios";
 
 function QueryPage() {
@@ -12,6 +13,7 @@ function QueryPage() {
   const [inputText, setInputText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [targetLanguage, setTargetLanguage] = useState("Select a language");
+  const [fetchingData, setFetchingData] = useState(false);
 
   const [orButtonClickCount, setORButtonClickCount] = useState(0);
   const [orButtonLabel, setORButtonLabel] = useState("OR");
@@ -34,6 +36,7 @@ function QueryPage() {
     { code: "fr", name: "French" },
     { code: "de", name: "German" },
     { code: "it", name: "Italian" },
+    { code: "zh", name: "Chinese" },
     { code: "ja", name: "Japanese" },
     { code: "pt", name: "Portuguese" },
     { code: "ru", name: "Russian" },
@@ -86,15 +89,16 @@ function QueryPage() {
       }
     }
   };
-  const handleLanguageChange = (e: { value: SetStateAction<string> }) => {
+  const handleLanguageChange = (e: any) => {
     setTargetLanguage(e.value);
   };
-  const handleInputChange = (e : any) => {
+  const handleInputChange = (e: any) => {
     setInputText(e.target.value);
   };
 
   const translateText = async () => {
     try {
+      setFetchingData(true);
       const response = await axios.post("https://libretranslate.de/translate", {
         q: inputText,
         source: "en",
@@ -103,6 +107,8 @@ function QueryPage() {
       setTranslatedText(response.data.translatedText);
     } catch (error) {
       console.error("Error translating text:", error);
+    } finally {
+      setFetchingData(false); // Set fetching state to false after fetching is complete
     }
   };
 
@@ -111,7 +117,7 @@ function QueryPage() {
   }, [targetLanguage]);
 
   return (
-    <div className="">
+    <div>
       <h1
         style={{
           backgroundColor: "#1087e8",
@@ -136,20 +142,35 @@ function QueryPage() {
             field="InputBox"
             header="Search Test"
             body={() => (
-              <div style={{ display: 'flex', alignItems: 'center'}}>
-              <InputTextarea
-                placeholder="Enter text to translate..."
-                value={inputText}
-                onChange={handleInputChange}
-                style={{marginRight:'10px'}} 
-              />
-              =
-              <InputTextarea
-              style={{marginLeft:'10px'}}
-                  value={translatedText}
-
-              />
-            </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <InputTextarea
+                  placeholder="Enter text to translate..."
+                  value={inputText}
+                  onChange={handleInputChange}
+                  style={{ marginRight: "10px" }}
+                />
+                {fetchingData ? (
+                  
+                  <ProgressSpinner
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      marginLeft: "10px",
+                    }}
+                    strokeWidth="8"
+                    fill="var(--surface-ground)"
+                    animationDuration=".5s"
+                  />
+                ) : (
+                  <>
+                    =
+                    <InputTextarea
+                      style={{ marginLeft: "10px" }}
+                      value={translatedText}
+                    />
+                  </>
+                )}
+              </div>
             )}
           />
           <Column
