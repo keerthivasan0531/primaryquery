@@ -123,7 +123,7 @@ function QueryPage() {
           padding: "20px",
         }}
       >
-        Welcome to my Prime React React App
+        React with PrimeReact UI
       </h1>
       <br />
       <div className="card">
