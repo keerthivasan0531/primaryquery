@@ -1,0 +1,36 @@
+.custom-table .p-datatable thead th {
+  background-color: #119a25;
+  color: white;
+}
+.p-datatable{
+    margin-bottom: 60px;
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: #12d608;
+    background: #12d608;
+}
+.p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: #000000;
+    background: #ffff;
+}
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+    height: 9px;
+    width: 9px;
+    transition-duration: 0.2s;
+    background-color: #000000;
+}
+
+
+.table-1 .p-button {
+    color: #000000;
+    background: #ffffff;
+    border: 1px solid #000000;
+}
+.p-radiobutton .p-radiobutton-box {
+    border: 3px solid #000000;
+}
+
+.p-datatable .p-datatable-header {
+    background-color: #119a25;
+    color: #ffffff;
+}
