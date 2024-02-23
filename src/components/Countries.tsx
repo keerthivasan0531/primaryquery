@@ -129,7 +129,7 @@ const ContinentTable: React.FC = () => {
   };
 
   return (
-    <div className="datatable-responsive-demo">
+    <div className="custom-table datatable-responsive-demo">
       <DataTable showGridlines value={data}>
         <Column
           field="NorthAmerica"
