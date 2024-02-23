@@ -23,7 +23,7 @@ const ContinentTable: React.FC = () => {
   ];
 
   return (
-    <div className="datatable-responsive-demo">
+    <div className=" datatable-responsive-demo">
       {/* Main DataTable */}
       <DataTable showGridlines value={data}>
         <Column
@@ -38,11 +38,13 @@ const ContinentTable: React.FC = () => {
 
 
        <br />
-      <DataTable showGridlines value={rootCauseData} header="Root Cause" style={{textAlign:"center", width:'90%'}}>
-        <Column header="WCC" body={(rowData) => rowData.WCC} />
-        <Column header="Casual Part" body={(rowData) => rowData.CasualPart} />
+       <div  className="Table1">
+      <DataTable showGridlines value={rootCauseData} header="Root Cause" style={{textAlign:"center", width:'100%'}}>
+        <Column style={{textAlign:"center"}} header="WCC" body={(rowData) => rowData.WCC} />
+        <Column style={{textAlign:"center"}} header="Casual Part" body={(rowData) => rowData.CasualPart} />
 
       </DataTable>
+      </div>
     </div>
   )
 };
